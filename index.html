@@ -783,7 +783,7 @@
             qrCodeEl.innerHTML = `<img src="${qrCodeUrl}" alt="QR Code PIX">`;
             
             const pixCodeInput = document.getElementById('pix-code');
-            pixCodeInput.value = pixCode.replace(/\s+/g, ''); // Limpa espaços extras
+            pixCodeInput.value = pixCode; // Alterado para manter os espaços
 
             openModal(paymentModal);
         };
