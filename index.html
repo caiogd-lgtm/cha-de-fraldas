@@ -2,882 +2,419 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cardápio Drinks Ano Novo</title>
     
-    <!-- SEO e Metadados -->
-    <title>Chá de Fraldas Helena & Isadora</title>
-    <meta name="description" content="Convite para o Chá de Fraldas em comemoração à chegada de Helena e Isadora. Participe e presenteie com fraldinhas via PIX!">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Chá de Fraldas Helena & Isadora">
-    <meta property="og:description" content="Participe e presenteie com fraldinhas via PIX!">
-    <meta property="og:site_name" content="Chá de Fraldas Helena & Isadora">
+    <!-- Import Map para React e Lucide -->
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+        "lucide-react": "https://esm.sh/lucide-react@0.294.0"
+      }
+    }
+    </script>
     
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary">
-    <meta property="twitter:title" content="Chá de Fraldas Helena & Isadora">
-    <meta property="twitter:description" content="Participe e presenteie com fraldinhas via PIX!">
-    
-    <!-- Favicon (SVG) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👶</text></svg>">
+    <!-- Babel para compilar JSX no navegador -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
-        /* * Estilos CSS para o Convite de Chá de Fraldas
-         * Design: Minimalista, responsivo (mobile-first) e com tema rosa bebê.
-         */
-
-        /* Reset e Padrões Globais */
-        :root {
-            --bg-color: #FDECF4;
-            --primary-color: #F7BBD0;
-            --secondary-color: #FAD3E7;
-            --text-color: #4A4A4A;
-            --white-color: #FFFFFF;
-            --success-color: #4CAF50;
-            --font-family-sans: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-            --font-family-display: 'Comic Sans MS', 'Quicksand', cursive, sans-serif; /* Fontes amigáveis e arredondadas */
-            --border-radius: 12px;
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            --transition-speed: 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-family-sans);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Tipografia */
-        h1, h2, h3 {
-            font-family: var(--font-family-display);
-            font-weight: 700;
-        }
-
-        h1 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            color: var(--text-color);
-        }
-
-        h2 {
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        p {
-            margin-bottom: 1rem;
-        }
-
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: color var(--transition-speed);
-        }
-
-        a:hover {
-            color: var(--text-color);
-        }
-
-        /* Layout e Contêineres */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-
-        section {
-            padding: 3rem 0;
-        }
-
-        /* Componentes */
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.8rem;
-            border-radius: var(--border-radius);
-            font-weight: bold;
-            text-align: center;
-            cursor: pointer;
-            border: none;
-            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-        }
-        
-        .btn-secondary {
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-        }
-
-        .btn-copy {
-            background-color: #e9e9e9;
-            color: var(--text-color);
-            width: 100%;
-        }
-
-        /* Seção Hero */
-        .hero {
-            text-align: center;
-            padding: 2.5rem 1rem; /* Diminuído o padding superior */
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header-image {
-            width: 250px;
-            height: auto;
-            margin-bottom: 1.5rem;
-        }
-        
-        .hero-illustration {
-            position: absolute;
-            opacity: 0.15;
-            z-index: -1;
-            width: 200px;
-            height: 200px;
-        }
-
-        .hero-illustration.cloud1 {
-            top: 10%;
-            left: 5%;
-        }
-
-        .hero-illustration.cloud2 {
-            bottom: 15%;
-            right: 10%;
-        }
-
-        .hero h1 {
-            margin-bottom: 0.5rem;
-        }
-
-        .hero .subtitle {
-            font-size: 1.2rem;
-            color: #6c6c6c;
-            margin-bottom: 2rem;
-        }
-
-        /* Seção Sobre */
-        #about {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        #about p {
-            margin-bottom: 1.5rem;
-        }
-
-        /* Seção de Kits de Fraldas */
-        .kits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .kit-card {
-            background-color: var(--white-color);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-            border: 2px solid var(--secondary-color);
-        }
-
-        .kit-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-        }
-
-        .kit-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .kit-card .brand {
-            color: #777;
-            margin-bottom: 1rem;
-        }
-
-        .kit-card .kit-duration {
-            font-size: 0.9rem;
-            color: var(--text-color);
-            background-color: #fdf8fa;
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 1rem;
-            border: 1px solid var(--secondary-color);
-        }
-
-        .kit-card .price {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-        
-        .kit-card .note {
-            font-size: 0.8rem;
-            color: #999;
-            margin-top: 2rem;
-        }
-
-        /* Seção Calculadora de Fraldas */
-        #diaper-calculator {
-            background-color: var(--white-color);
-        }
-
-        .calculator-form {
-            max-width: 400px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .calculator-field {
-            width: 100%;
-            text-align: center;
-        }
-        
-        .calculator-field label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
-
-        .baby-selector {
-            display: flex;
-            justify-content: center;
-            border: 1px solid var(--secondary-color);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-        }
-
-        .baby-selector .baby-option {
-            flex: 1;
-            padding: 0.75rem;
-            border: none;
-            background-color: var(--white-color);
-            cursor: pointer;
-            transition: background-color var(--transition-speed);
-            font-size: 1rem;
-        }
-        
-        .baby-selector .baby-option.active {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            font-weight: bold;
-        }
-
-        #num-days {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--secondary-color);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            text-align: center;
-        }
-
-        #calculate-btn {
-            width: 100%;
-        }
-
-        .calculator-result-box {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background-color: #fdf8fa;
-            border: 2px dashed var(--primary-color);
-            border-radius: var(--border-radius);
-            text-align: center;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .calculator-result-box p {
-            margin: 0;
-            font-size: 1.2rem;
-        }
-
-        .calculator-result-box span {
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 1.5rem;
-        }
-
+        /* Animações customizadas */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
-
-        /* Seção FAQ */
-        .faq-item {
-            background: var(--white-color);
-            margin-bottom: 1rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
+        .animate-in {
+            animation: fadeIn 0.2s ease-out forwards;
         }
-
-        .faq-question {
-            padding: 1rem 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Esconder scrollbar no modal mas permitir scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-        
-        .faq-question::after {
-            content: '▼';
-            font-size: 0.8rem;
-            transition: transform var(--transition-speed);
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            padding: 0 1.5rem;
-            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
-        }
-        
-        .faq-item.active .faq-question::after {
-            transform: rotate(180deg);
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 200px; /* Altura suficiente para a resposta */
-            padding: 0.5rem 1.5rem 1.5rem;
-        }
-
-        /* Rodapé */
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            margin-top: 2rem;
-            border-top: 1px solid var(--secondary-color);
-        }
-
-        footer .footer-links a {
-            margin: 0 0.5rem;
-        }
-
-        /* Modals */
-        .modal {
-            display: none; /* Escondido por padrão */
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.is-open {
-            display: flex;
-        }
-
-        .modal-content {
-            background-color: var(--white-color);
-            margin: auto;
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            animation: scaleUp 0.3s ease-out;
-        }
-
-        @keyframes scaleUp {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .modal-header h2 {
-            margin: 0;
-            text-align: left;
-        }
-
-        .close-button {
-            font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            background: none;
-            color: #aaa;
-        }
-
-        .close-button:hover {
-            color: var(--text-color);
-        }
-        
-        /* Modal de Seleção */
-        #selection-modal .modal-body {
-            text-align: center;
-        }
-        .choice-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        .choice-btn {
-            width: 100%;
-        }
-
-        /* Modal de Pagamento */
-        .pix-section {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-        
-        #pix-qrcode {
-            margin: 1rem auto;
-            display: block;
-            width: 200px;
-            height: 200px;
-            background-color: #f0f0f0;
-            border-radius: var(--border-radius);
-        }
-
-        #pix-qrcode img {
-            width: 100%;
-            height: 100%;
-            border-radius: var(--border-radius);
-        }
-        
-        #pix-code {
-            width: 100%;
-            padding: 0.5rem;
-            font-family: monospace;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            word-break: break-all;
-            margin-bottom: 1rem;
-        }
-        
-        .modal-actions {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center; /* Centralizado */
-        }
-        
-        .modal-actions .btn {
-            padding: 0.6rem 1.2rem; /* Menor */
-            font-size: 0.9rem; /* Menor */
+        body {
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800">
 
-    <!-- Cabeçalho / Hero Section -->
-    <header class="hero">
-        <img src="https://i.ibb.co/B5Yzw1BD/okkk.png" alt="Ilustração de Helena e Isadora" class="header-image">
-        <svg class="hero-illustration cloud1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 72" fill="#FAD3E7"><path d="M116 72H12c-6.6 0-12-5.4-12-12s5.4-12 12-12h2.7c2.2-17.3 17.1-30.8 35.3-30.8 13.2 0 24.8 7.2 31.1 17.9 3.4-1.2 7.1-1.9 11-1.9 14.9 0 27 12.1 27 27s-12.1 27-27 27z"/></svg>
-        <svg class="hero-illustration cloud2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 72" fill="#FAD3E7"><path d="M116 72H12c-6.6 0-12-5.4-12-12s5.4-12 12-12h2.7c2.2-17.3 17.1-30.8 35.3-30.8 13.2 0 24.8 7.2 31.1 17.9 3.4-1.2 7.1-1.9 11-1.9 14.9 0 27 12.1 27 27s-12.1 27-27 27z"/></svg>
-        <h1>Chá de Fraldas Helena & Isadora</h1>
-        <p class="subtitle">14 de setembro de 2025 • a partir das 8h30<br>Local: Nossa Casa</p>
-        <a href="#kits" class="btn btn-primary">Presentear com fraldas</a>
-    </header>
+    <div id="root"></div>
 
-    <main>
-        <!-- Seção Sobre -->
-        <section id="about">
-            <div class="container">
-                <p>A nossa felicidade vai chegar em dobro, e queremos dividir cada pedacinho dela com você! Sejam bem-vindos ao site do Chá de Fraldas das nossas princesas, Isadora e Helena.</p>
-                <p>Papai, mamãe e Maíne já estão com os corações transbordando de amor e ansiosos para essa nova fase cheia de laços, risadas e... muitas fraldas!</p>
-                <p>Pensando na praticidade, criamos este espaço onde você pode participar desse momento especial nos presenteando com um kit de fraldas. É rápido, seguro e nos ajudará imensamente nos preparativos para receber nossa dupla.</p>
-                <p>Obrigado por celebrar conosco!</p>
-            </div>
-        </section>
+    <script type="text/babel" data-type="module">
+        import React, { useState } from 'react';
+        import { createRoot } from 'react-dom/client';
+        import { Wine, GlassWater, Citrus, Leaf, Sparkles, X, PartyPopper, Check, Info } from 'lucide-react';
 
-        <!-- Seção de Kits de Fraldas -->
-        <section id="kits">
-            <div class="container">
-                <h2>Escolha um kit para presentear</h2>
-                <div class="kits-grid">
-                    <!-- Kit 25 -->
-                    <div class="kit-card" 
-                         data-name="Kit 25 Fraldas Huggies Natural Care" 
-                         data-price="64.90"
-                         data-qr-single="https://i.ibb.co/BHnRYh7Q/25x1.png"
-                         data-pix-single="00020126430014BR.GOV.BCB.PIX0111396775538010206Kit 25520400005303986540564.905802BR5922CAIO GARCIA D AGOSTINI6009AMERICANA62070503***6304FB40"
-                         data-qr-double="https://i.ibb.co/1YW2dWxh/25x2.png"
-                         data-pix-double="00020126450014BR.GOV.BCB.PIX0111396775538010208Kit 25x25204000053039865406129.805802BR5922CAIO GARCIA D AGOSTINI6009AMERICANA62070503***63043BE5">
-                        <h3>Kit 25 Fraldas</h3>
-                        <p class="brand">Huggies Natural Care</p>
-                        <p class="kit-duration">1 bebê por 4 dias</p>
-                        <p class="price">R$ 64,90</p>
-                        <button class="btn btn-primary presentear-btn">Presentear</button>
-                    </div>
-                    <!-- Kit 50 -->
-                    <div class="kit-card" 
-                         data-name="Kit 50 Huggies Natural Care" 
-                         data-price="99.90"
-                         data-qr-single="https://i.ibb.co/Y4jv0ZMX/kit50.png"
-                         data-pix-single="00020126510014BR.GOV.BCB.PIX0111396775538010214Kit 50 fraldas520400005303986540599.005802BR5922CAIO GARCIA D AGOSTINI6009AMERICANA62070503***6304FFC2"
-                         data-qr-double="https://i.ibb.co/xKFM0qV9/50x2.png"
-                         data-pix-double="00020126450014BR.GOV.BCB.PIX0111396775538010208Kit 50x25204000053039865406199.805802BR5922CAIO GARCIA D AGOSTINI6009AMERICANA62070503***6304243C">
-                        <h3>Kit 50 Fraldas</h3>
-                        <p class="brand">Huggies Natural Care</p>
-                        <p class="kit-duration">1 bebê por 8 dias</p>
-                        <p class="price">R$ 99,90</p>
-                        <button class="btn btn-primary presentear-btn">Presentear</button>
-                    </div>
-                    <!-- Kit 75 -->
-                    <div class="kit-card"
-                         data-name="Kit 75 Huggies Natural Care" 
-                         data-price="149.90"
-                         data-qr-single="https://i.ibb.co/Qw5j4Fm/75x1.png"
-                         data-pix-single="00020126430014BR.GOV.BCB.PIX0111396775538010206Kit 755204000053039865406149.905802BR5922CAIO GARCIA D AGOSTINI6009AMERICANA62070503***6304E2CE"
-                         data-qr-double="https://i.ibb.co/n80Tmbf0/75x2.jpg"
-                         data-pix-double="00020126450014BR.GOV.BCB.PIX0111396775538010208Kit 75x25204000053039865406299.805802BR5922CAIO GARCIA D AGOSTINI6009AMERICANA62070503***6304D101">
-                        <h3>Kit 75 Fraldas</h3>
-                        <p class="brand">Huggies Natural Care</p>
-                        <p class="kit-duration">1 bebê por 12 dias</p>
-                        <p class="price">R$ 149,90</p>
-                        <button class="btn btn-primary presentear-btn">Presentear</button>
-                    </div>
-                    <!-- Kit 100 -->
-                    <div class="kit-card"
-                         data-name="Kit 100 Huggies Natural Care" 
-                         data-price="199.90"
-                         data-qr-single="https://i.ibb.co/VWvgsfVR/100x1.png"
-                         data-pix-single="00020126440014BR.GOV.BCB.PIX0111396775538010207Kit 1005204000053039865406199.905802BR5922CAIO GARCIA D AGOSTINI6009AMERICANA62070503***6304F97E"
-                         data-qr-double="https://i.ibb.co/nMZMypJ5/100x2.png"
-                         data-pix-double="00020126460014BR.GOV.BCB.PIX0111396775538010209Kit 100x25204000053039865406399.805802BR5922CAIO GARCIA D AGOSTINI6009AMERICANA62070503***6304C23A">
-                        <h3>Kit 100 Fraldas</h3>
-                        <p class="brand">Huggies Natural Care</p>
-                        <p class="kit-duration">1 bebê por 16 dias</p>
-                        <p class="price">R$ 199,90</p>
-                        <button class="btn btn-primary presentear-btn">Presentear</button>
-                    </div>
-                </div>
-                <p class="note" style="text-align: center; margin-top: 1.5rem;">Todos os valores são fixos por kit.</p>
-            </div>
-        </section>
+        const drinksData = [
+            {
+                id: 1,
+                name: "Caipirinha Clássica",
+                category: "alcohol",
+                base: "Cachaça",
+                icon: "Citrus",
+                description: "O clássico brasileiro. Forte e refrescante.",
+                ingredients: [
+                    "1 Limão Taiti (sem miolo branco)",
+                    "2 colheres (sobremesa) de Açúcar",
+                    "60ml de Cachaça",
+                    "Gelo filtrado"
+                ],
+                steps: [
+                    "Corte o limão em pedaços e coloque no copo.",
+                    "Adicione o açúcar e macere bem.",
+                    "Encha o copo de gelo.",
+                    "Complete com a cachaça e mexa."
+                ],
+                color: "bg-lime-100 border-lime-500 text-lime-700",
+                iconColor: "text-lime-600"
+            },
+            {
+                id: 2,
+                name: "Caipifruta Morango & Hortelã",
+                category: "alcohol",
+                base: "Cachaça",
+                icon: "Leaf",
+                description: "Doce com um toque herbal refrescante.",
+                ingredients: [
+                    "4 a 5 Morangos frescos",
+                    "6 folhas de Hortelã",
+                    "2 colheres de Açúcar",
+                    "60ml de Cachaça",
+                    "Gelo"
+                ],
+                steps: [
+                    "Macere os morangos com o açúcar.",
+                    "Adicione a hortelã (dê um tapa nas folhas antes).",
+                    "Adicione gelo e a cachaça.",
+                    "Mexa suavemente."
+                ],
+                color: "bg-rose-100 border-rose-500 text-rose-700",
+                iconColor: "text-rose-600"
+            },
+            {
+                id: 3,
+                name: "Sakerinha Tropical",
+                category: "alcohol",
+                base: "Saquê",
+                icon: "Citrus",
+                description: "Leve, aromática e sofisticada.",
+                ingredients: [
+                    "1/2 xícara de Abacaxi em cubos",
+                    "2 fatias de Limão Siciliano",
+                    "2 colheres de Açúcar",
+                    "60ml de Saquê",
+                    "Gelo"
+                ],
+                steps: [
+                    "Macere o abacaxi com o açúcar e as fatias de siciliano.",
+                    "Encha de gelo.",
+                    "Complete com Saquê e mexa bem."
+                ],
+                color: "bg-yellow-100 border-yellow-500 text-yellow-700",
+                iconColor: "text-yellow-600"
+            },
+            {
+                id: 4,
+                name: "Sake Spritz",
+                category: "alcohol",
+                base: "Saquê",
+                icon: "Sparkles",
+                description: "Drink longo, com borbulhas e muito suave.",
+                ingredients: [
+                    "3 Morangos fatiados",
+                    "60ml de Saquê",
+                    "Completar com Sprite/Soda",
+                    "Gelo"
+                ],
+                steps: [
+                    "Em uma taça com gelo, coloque o Saquê.",
+                    "Complete com Sprite.",
+                    "Adicione os morangos fatiados para decorar e aromatizar.",
+                    "Mexa levemente."
+                ],
+                color: "bg-pink-100 border-pink-400 text-pink-700",
+                iconColor: "text-pink-500"
+            },
+            {
+                id: 5,
+                name: "Mojito de Morango",
+                category: "alcohol",
+                base: "Rum",
+                icon: "Leaf",
+                description: "O rei da festa. Refrescante e visualmente lindo.",
+                ingredients: [
+                    "4 Morangos",
+                    "10 folhas de Hortelã",
+                    "Suco de 1/2 Limão Taiti",
+                    "50ml de Rum Branco",
+                    "Água com Gás para completar",
+                    "Gelo"
+                ],
+                steps: [
+                    "Macere morangos, suco de limão e açúcar.",
+                    "Adicione hortelã e rum.",
+                    "Encha de gelo e complete com água com gás."
+                ],
+                color: "bg-emerald-100 border-emerald-500 text-emerald-700",
+                iconColor: "text-emerald-600"
+            },
+            {
+                id: 6,
+                name: "Daiquiri Batido",
+                category: "alcohol",
+                base: "Rum",
+                icon: "Wine",
+                description: "Cítrico, forte e elegante. Servido sem gelo.",
+                ingredients: [
+                    "Suco de 1 Limão Taiti",
+                    "2 colheres de Açúcar (caprichadas)",
+                    "60ml de Rum Branco",
+                    "Gelo (para bater)"
+                ],
+                steps: [
+                    "Coloque tudo numa coqueteleira (ou pote com tampa).",
+                    "Bata vigorosamente até gelar bem.",
+                    "Sirva coado (sem o gelo) numa taça ou copo baixo."
+                ],
+                color: "bg-orange-100 border-orange-500 text-orange-700",
+                iconColor: "text-orange-600"
+            },
+            {
+                id: 7,
+                name: "Pink Lemonade",
+                category: "non-alcohol",
+                base: "Sem Álcool",
+                icon: "GlassWater",
+                description: "Refrescante e favorita de quem não bebe.",
+                ingredients: [
+                    "Suco de 1 Limão Siciliano",
+                    "2 Morangos macerados",
+                    "Sprite ou Água com Gás",
+                    "Gelo"
+                ],
+                steps: [
+                    "Macere os morangos no fundo do copo.",
+                    "Adicione o suco do limão siciliano.",
+                    "Encha de gelo e complete com Sprite."
+                ],
+                color: "bg-fuchsia-100 border-fuchsia-400 text-fuchsia-700",
+                iconColor: "text-fuchsia-500"
+            },
+            {
+                id: 8,
+                name: "Abacaxi Hula Hula",
+                category: "non-alcohol",
+                base: "Sem Álcool",
+                icon: "GlassWater",
+                description: "Tropical e leve como um dia de spa.",
+                ingredients: [
+                    "Cubos de Abacaxi",
+                    "Muitas folhas de Hortelã",
+                    "Água com Gás",
+                    "Açúcar a gosto",
+                    "Gelo"
+                ],
+                steps: [
+                    "Macere bem o abacaxi com um pouco de açúcar.",
+                    "Adicione a hortelã.",
+                    "Muito gelo e complete com água com gás."
+                ],
+                color: "bg-cyan-100 border-cyan-400 text-cyan-700",
+                iconColor: "text-cyan-600"
+            }
+        ];
 
-        <!-- Seção Calculadora de Fraldas -->
-        <section id="diaper-calculator">
-            <div class="container">
-                <h2>Calculadora de Fraldas</h2>
-                <p style="text-align: center; max-width: 500px; margin: 0 auto 2rem auto;">
-                    Quer ter uma ideia de quantas fraldas as meninas usarão? Faça uma simulação!
-                </p>
-                <div class="calculator-form">
-                    <div class="calculator-field">
-                        <label>Quantidade de bebês:</label>
-                        <div class="baby-selector">
-                            <button class="baby-option active" data-babies="1">1 Bebê</button>
-                            <button class="baby-option" data-babies="2">2 Bebês</button>
+        // Mapeamento de Ícones para evitar erros de renderização dinâmica
+        const IconMap = {
+            Citrus: Citrus,
+            Leaf: Leaf,
+            Sparkles: Sparkles,
+            Wine: Wine,
+            GlassWater: GlassWater
+        };
+
+        function App() {
+            const [selectedDrink, setSelectedDrink] = useState(null);
+            const [filter, setFilter] = useState('all'); 
+
+            const filteredDrinks = drinksData.filter(drink => {
+                if (filter === 'all') return true;
+                return drink.category === filter;
+            });
+
+            const DrinkIcon = ({ name, className }) => {
+                const IconComponent = IconMap[name];
+                return IconComponent ? <IconComponent className={className} /> : null;
+            };
+
+            return (
+                <div className="min-h-screen bg-slate-50 font-sans pb-10">
+                
+                    {/* Header Festivo */}
+                    <div className="bg-slate-900 text-white p-6 pt-8 text-center shadow-lg relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-yellow-500 via-amber-200 to-yellow-500 animate-pulse"></div>
+                        <h1 className="text-3xl font-extrabold text-yellow-400 flex items-center justify-center gap-2 mb-1">
+                            <PartyPopper className="text-yellow-400 w-8 h-8" />
+                            Drinks 2026
+                        </h1>
+                        <p className="text-slate-400 text-sm font-medium">Cardápio Interativo da Virada</p>
+                    </div>
+
+                    {/* Filtros Fixos no Topo */}
+                    <div className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-md border-b border-slate-200 shadow-sm p-3">
+                        <div className="flex justify-center gap-2 max-w-md mx-auto">
+                            <button 
+                                onClick={() => setFilter('all')}
+                                className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${filter === 'all' ? 'bg-slate-800 text-white shadow-md transform scale-105' : 'bg-white text-slate-500 border border-slate-200'}`}
+                            >
+                                Todos
+                            </button>
+                            <button 
+                                onClick={() => setFilter('alcohol')}
+                                className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${filter === 'alcohol' ? 'bg-slate-800 text-white shadow-md transform scale-105' : 'bg-white text-slate-500 border border-slate-200'}`}
+                            >
+                                Com Álcool
+                            </button>
+                            <button 
+                                onClick={() => setFilter('non-alcohol')}
+                                className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${filter === 'non-alcohol' ? 'bg-slate-800 text-white shadow-md transform scale-105' : 'bg-white text-slate-500 border border-slate-200'}`}
+                            >
+                                Sem Álcool
+                            </button>
                         </div>
-                        <input type="hidden" id="num-babies" value="1">
                     </div>
-                    <div class="calculator-field">
-                        <label for="num-days">Quantidade de dias:</label>
-                        <input type="number" id="num-days" min="1" placeholder="Ex: 30">
+
+                    {/* Lista de Drinks */}
+                    <div className="max-w-md mx-auto px-4 mt-6 grid gap-4 pb-20">
+                        {filteredDrinks.map((drink) => (
+                            <div 
+                                key={drink.id}
+                                onClick={() => setSelectedDrink(drink)}
+                                className={`relative p-5 rounded-2xl border-l-[6px] shadow-sm bg-white active:scale-[0.98] transition-all cursor-pointer flex items-center gap-4 ${drink.color.replace('text-', 'border-')}`}
+                            >
+                                <div className={`p-3 rounded-xl shadow-sm bg-slate-50 ${drink.iconColor}`}>
+                                    <DrinkIcon name={drink.icon} className="w-8 h-8" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <h3 className="font-bold text-lg text-slate-800 truncate">{drink.name}</h3>
+                                    <div className="flex items-center gap-2">
+                                        <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 text-slate-500`}>
+                                            {drink.base}
+                                        </span>
+                                    </div>
+                                    <p className="text-xs text-slate-500 mt-1 line-clamp-1">{drink.description}</p>
+                                </div>
+                                <div className="text-slate-300">
+                                    <Info className="w-5 h-5" />
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                    <button id="calculate-btn" class="btn btn-primary">Calcular</button>
-                </div>
-                <div id="calculator-result" class="calculator-result-box" style="display: none;">
-                    <!-- O resultado será inserido aqui -->
-                </div>
-            </div>
-        </section>
-        
-        <!-- Seção de Perguntas Frequentes -->
-        <section id="faq">
-            <div class="container">
-                <h2>Perguntas Frequentes</h2>
-                <div class="faq-item">
-                    <div class="faq-question">Como funciona o pagamento?</div>
-                    <div class="faq-answer">
-                        <p>É simples: escolha um kit, clique em "Presentear", e o site mostrará um QR Code e um código PIX COPIA E COLA. Use o app do seu banco para pagar.</p>
+
+                    {/* Footer */}
+                    <div className="text-center text-slate-400 text-xs pb-6">
+                        <p>Toque no drink para ver a receita</p>
                     </div>
+
+                    {/* Modal Tela Cheia (Bartender View) */}
+                    {selectedDrink && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-in">
+                            <div 
+                                className="bg-white w-full h-full sm:h-auto max-w-lg rounded-3xl shadow-2xl overflow-hidden flex flex-col relative"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                
+                                {/* Header do Modal */}
+                                <div className={`relative p-8 pb-10 ${selectedDrink.color.split(' ')[0]} border-b border-black/5`}>
+                                    <button 
+                                        onClick={() => setSelectedDrink(null)}
+                                        className="absolute top-4 right-4 bg-white/60 hover:bg-white p-2 rounded-full transition-colors shadow-sm z-10"
+                                    >
+                                        <X className="w-6 h-6 text-slate-800" />
+                                    </button>
+                                    
+                                    <div className="flex flex-col items-center justify-center">
+                                        <div className="bg-white p-5 rounded-2xl shadow-xl mb-4 transform scale-110">
+                                            <DrinkIcon name={selectedDrink.icon} className={`w-12 h-12 ${selectedDrink.iconColor}`} />
+                                        </div>
+                                        <h2 className="text-3xl font-black text-center text-slate-800 leading-tight">
+                                            {selectedDrink.name}
+                                        </h2>
+                                        <span className="mt-2 text-sm font-bold bg-white/50 px-3 py-1 rounded-full text-slate-700 uppercase tracking-wide">
+                                            Base: {selectedDrink.base}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* Conteúdo Scrollável */}
+                                <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-white no-scrollbar">
+                                    
+                                    {/* Ingredientes */}
+                                    <div>
+                                        <h3 className="flex items-center gap-2 text-xs uppercase tracking-widest font-black text-slate-400 mb-4">
+                                            <Sparkles className="w-4 h-4" /> Ingredientes
+                                        </h3>
+                                        <ul className="space-y-3">
+                                            {selectedDrink.ingredients.map((ing, idx) => (
+                                                <li key={idx} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-yellow-500 mt-2 flex-shrink-0"></div>
+                                                    <span className="text-base font-semibold text-slate-700 leading-snug">{ing}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    {/* Preparo */}
+                                    <div className="bg-amber-50/50 p-5 rounded-2xl border border-amber-100/50">
+                                        <h3 className="flex items-center gap-2 text-xs uppercase tracking-widest font-black text-amber-500 mb-4">
+                                            <Check className="w-4 h-4" /> Modo de Preparo
+                                        </h3>
+                                        <ol className="space-y-5">
+                                            {selectedDrink.steps.map((step, idx) => (
+                                                <li key={idx} className="flex gap-4 relative">
+                                                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white border-2 border-amber-200 flex items-center justify-center text-sm font-bold text-amber-600 shadow-sm z-10">
+                                                        {idx + 1}
+                                                    </div>
+                                                    {idx !== selectedDrink.steps.length - 1 && (
+                                                        <div className="absolute left-4 top-8 w-0.5 h-full bg-amber-200/50 -z-0"></div>
+                                                    )}
+                                                    <span className="text-slate-700 leading-snug py-1">{step}</span>
+                                                </li>
+                                            ))}
+                                        </ol>
+                                    </div>
+                                </div>
+
+                                {/* Botão Fechar Fixo embaixo (Mobile friendly) */}
+                                <div className="p-4 bg-white border-t border-slate-100">
+                                    <button 
+                                        onClick={() => setSelectedDrink(null)}
+                                        className="w-full bg-slate-900 text-yellow-400 font-bold py-4 rounded-xl text-lg hover:bg-slate-800 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center gap-2"
+                                    >
+                                        <Check className="w-5 h-5" />
+                                        Pronto, Fechar!
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    )}
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">Posso pagar outro valor?</div>
-                    <div class="faq-answer">
-                        <p>Neste site, os valores são fixos para cada kit de fraldas, para facilitar a organização.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Qual a chave PIX?</div>
-                    <div class="faq-answer">
-                        <p>A chave PIX principal é o CPF: <strong>396.775.538-01</strong>. O código PIX "Copia e Cola" já inclui essa informação e o valor exato.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Posso comprar mais de um kit?</div>
-                    <div class="faq-answer">
-                        <p>Sim, claro! Basta repetir o processo de compra para cada kit que desejar presentear. Agradecemos imensamente!</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+            );
+        }
 
-    <!-- Rodapé -->
-    <footer>
-        <div class="container">
-            <p>Com amor, Flávia, Helena & Isadora</p>
-            <div class="footer-links">
-                <a href="#">Voltar ao topo</a> |
-                <a href="#kits">Ver kits</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modal de Seleção -->
-    <div id="selection-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="selection-modal-title">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="selection-modal-title">Para quem é o presente?</h2>
-                <button class="close-button" aria-label="Fechar modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="choice-buttons">
-                    <button class="btn btn-primary choice-btn" data-multiplier="1">Para Helena</button>
-                    <button class="btn btn-primary choice-btn" data-multiplier="1">Para Isadora</button>
-                    <button class="btn btn-secondary choice-btn" data-multiplier="2">Para as duas (presente em dobro)</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Modal de Pagamento -->
-    <div id="payment-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="payment-modal-title">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="payment-modal-title">Finalizar presente</h2>
-                <button class="close-button" aria-label="Fechar modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p><strong>Produto:</strong> <span id="modal-product-name"></span></p>
-                <p><strong>Valor:</strong> <span id="modal-product-price"></span></p>
-                <hr style="margin: 1rem 0; border: 0; border-top: 1px solid #eee;">
-                
-                <div class="pix-section">
-                    <p>Leia o QR Code no seu banco ou copie o código PIX COPIA E COLA abaixo:</p>
-                    <div id="pix-qrcode-container">
-                        <div id="pix-qrcode"></div>
-                    </div>
-                    <input type="text" id="pix-code" readonly>
-                    <button id="copy-pix-btn" class="btn btn-copy">Copiar Código PIX COPIA E COLA</button>
-                </div>
-                
-                <div class="modal-actions">
-                    <button class="btn btn-secondary close-button">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // --- Seletores ---
-        const presentearBtns = document.querySelectorAll('.presentear-btn');
-        const faqItems = document.querySelectorAll('.faq-item');
-        
-        // Modal de Seleção
-        const selectionModal = document.getElementById('selection-modal');
-        const selectionCloseBtns = selectionModal.querySelectorAll('.close-button');
-        const choiceBtns = selectionModal.querySelectorAll('.choice-btn');
-
-        // Modal de Pagamento
-        const paymentModal = document.getElementById('payment-modal');
-        const paymentCloseBtns = paymentModal.querySelectorAll('.close-button');
-        const copyPixBtn = document.getElementById('copy-pix-btn');
-        
-        let currentProduct = null;
-        let copyTimeout = null;
-
-        // --- Funções dos Modais ---
-        const openModal = (modal) => {
-            modal.classList.add('is-open');
-            document.body.style.overflow = 'hidden';
-        };
-
-        const closeModal = (modal) => {
-            modal.classList.remove('is-open');
-            document.body.style.overflow = 'auto';
-        };
-
-        // --- Lógica Principal ---
-
-        // 1. Abrir Modal de Seleção ao clicar em "Presentear"
-        presentearBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const card = btn.closest('.kit-card');
-                currentProduct = card.dataset;
-                openModal(selectionModal);
-            });
-        });
-
-        // 2. Processar a escolha no Modal de Seleção
-        choiceBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const multiplier = parseInt(btn.dataset.multiplier, 10);
-                closeModal(selectionModal);
-                openPaymentModal(currentProduct, multiplier);
-            });
-        });
-        
-        // 3. Abrir Modal de Pagamento com os dados corretos
-        const openPaymentModal = (product, multiplier) => {
-            const price = parseFloat(product.price);
-            let finalName, finalPriceText, qrCodeUrl, pixCode;
-
-            if (multiplier === 2) {
-                const doublePrice = price * 2;
-                finalName = `2 x ${product.name}`;
-                finalPriceText = `2 x R$ ${price.toFixed(2).replace('.', ',')} = R$ ${doublePrice.toFixed(2).replace('.', ',')}`;
-                qrCodeUrl = product.qrDouble;
-                pixCode = product.pixDouble;
-            } else {
-                finalName = product.name;
-                finalPriceText = `R$ ${price.toFixed(2).replace('.', ',')}`;
-                qrCodeUrl = product.qrSingle;
-                pixCode = product.pixSingle;
-            }
-
-            document.getElementById('modal-product-name').textContent = finalName;
-            document.getElementById('modal-product-price').innerHTML = finalPriceText;
-            
-            const qrCodeEl = document.getElementById('pix-qrcode');
-            qrCodeEl.innerHTML = `<img src="${qrCodeUrl}" alt="QR Code PIX">`;
-            
-            const pixCodeInput = document.getElementById('pix-code');
-            pixCodeInput.value = pixCode; // Alterado para manter os espaços
-
-            openModal(paymentModal);
-        };
-        
-        // --- Eventos de Fechar Modais ---
-        selectionCloseBtns.forEach(btn => btn.addEventListener('click', () => closeModal(selectionModal)));
-        paymentCloseBtns.forEach(btn => btn.addEventListener('click', () => closeModal(paymentModal)));
-        
-        window.addEventListener('click', (e) => {
-            if (e.target === selectionModal) closeModal(selectionModal);
-            if (e.target === paymentModal) closeModal(paymentModal);
-        });
-
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (selectionModal.classList.contains('is-open')) closeModal(selectionModal);
-                if (paymentModal.classList.contains('is-open')) closeModal(paymentModal);
-            }
-        });
-        
-        // --- Lógica do Acordeão FAQ ---
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                faqItems.forEach(i => i.classList.remove('active'));
-                if (!isActive) {
-                    item.classList.add('active');
-                }
-            });
-        });
-        
-        // --- Lógica do Botão de Copiar ---
-        copyPixBtn.addEventListener('click', () => {
-            const pixCodeInput = document.getElementById('pix-code');
-            if (!pixCodeInput.value || pixCodeInput.value.includes('indisponível')) return;
-
-            pixCodeInput.select();
-            
-            try {
-                navigator.clipboard.writeText(pixCodeInput.value).then(showCopyFeedback).catch(() => {
-                    document.execCommand('copy');
-                    showCopyFeedback();
-                });
-            } catch (err) {
-                console.error('Falha ao copiar o código PIX.', err);
-            }
-        });
-
-        const showCopyFeedback = () => {
-            const originalText = copyPixBtn.textContent;
-            copyPixBtn.textContent = 'Copiado!';
-            copyPixBtn.disabled = true;
-            
-            clearTimeout(copyTimeout);
-            copyTimeout = setTimeout(() => {
-                copyPixBtn.textContent = originalText;
-                copyPixBtn.disabled = false;
-            }, 2000);
-        };
-        
-        // --- Lógica da Calculadora de Fraldas ---
-        const babyOptions = document.querySelectorAll('.baby-option');
-        const numBabiesInput = document.getElementById('num-babies');
-        const calculateBtn = document.getElementById('calculate-btn');
-        const numDaysInput = document.getElementById('num-days');
-        const resultBox = document.getElementById('calculator-result');
-
-        babyOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                babyOptions.forEach(opt => opt.classList.remove('active'));
-                option.classList.add('active');
-                numBabiesInput.value = option.dataset.babies;
-            });
-        });
-
-        calculateBtn.addEventListener('click', () => {
-            const numBabies = parseInt(numBabiesInput.value, 10);
-            const numDays = parseInt(numDaysInput.value, 10);
-
-            if (isNaN(numDays) || numDays <= 0) {
-                resultBox.innerHTML = `<p style="color: red;">Por favor, insira um número de dias válido.</p>`;
-                resultBox.style.display = 'block';
-                return;
-            }
-
-            const diapersPerDayPerBaby = 6;
-            const totalDiapers = numBabies * numDays * diapersPerDayPerBaby;
-
-            resultBox.innerHTML = `<p>Para ${numBabies} bebê(s) durante ${numDays} dia(s), serão necessárias aproximadamente <span>${totalDiapers}</span> fraldas!</p>`;
-            resultBox.style.display = 'block';
-        });
-    });
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
+
 
